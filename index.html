@@ -228,11 +228,11 @@
 		between the three techniques: pixel sampling, level sampling, and the number of samples
 		per pixel.</b></p>
 		pixel sampling is how u determine what to color a point, do you use the nearest texel or the surrounding 4 texels
-		doesnt add memory, it just happens in the moment. speed is high becuase you only need to do 4 averages and aliasing power is good relative to that
+		doesnt add memory it just happens in the moment. speed is high becuase you only need to do 4 averages and aliasing power is good relative to that
 		level sampling is deciding which mipmap level to use (u can use a whole level or a weighted average of two levels)
 		it approaches 4/3 (number of texels) in memory with the more layers you add. it is long too, depending on the number of levels. it does get really high aliasing power though
 		samples per pixel determines how many samples u use per pixel. 
-		doesnt add memory, it just happens in the moment. its speed goes up exponentially with each additional sampling but the aliasing power doesnt increase that much
+		adds memory proportionate to the amount of samples * pixels, which can be a lot., it just happens in the moment. its speed goes up exponentially with each additional sampling but the aliasing power doesnt increase that much
 		because a lot of averages are already happening. 
 		each have their use cases. pixel sampling and samples per pixels have similar use cases but u up the samples per pixels with longer compute if u want more aliasing. 
 		level sampling is for high levels of aliasing. 
