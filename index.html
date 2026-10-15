@@ -1,7 +1,9 @@
 <html>
 	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<script
+		src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+		rel="stylesheet">
 		<style>
 			h1 {
 				text-align: center;
@@ -28,85 +30,237 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Fall 2026 Homework 1 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Names: Abraham Karikkineth</div>
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
-		
+		Link to webpage: <a
+		href="https://cal-cs184-student.github.io/hw1-akarik3873-writeup/">cal-cs184-student.github.io/hw1-akarik3873-writeup</a>
+
 		<br>
 
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/fa26">cs184.eecs.berkeley.edu/fa26</a>
+		Link to GitHub repository: <a
+		href="https://github.com/cal-cs184-student/hw1-akarik3873">github.com/cal-cs184-student/hw1-akarik3873</a>
 
-		<figure>
-			<img src="assets/lion.jpg" alt="Lion" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
 
 		<!--
-		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+		We've already added one heading per task, to make your write-up as navigable when
+		grading. Please fit your write-up within these sections!
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		<p><b>1. Give a high-level overview of what you have implemented in this assignment.</b></p>
+		In this assignment, I learned how to draw triangles with rasterized isolation um, and then I
+		learned a simple way to anti-alias using supersampling. And then after that, I learned how
+		to transform shapes um, especially triangles, uh, using matrices. And then I used I learned
+		how to express um, triangles with barycentric coordinates and then I learned pixel sampling
+		and level sampling for texture mapping.
+		 
+		<p><b>2. What interesting things did you learn from completing the homework?</b></p>
+		I learned that there's a lot of way to anti-alias um, and I found a cool um, how to do
+		rasterization.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>1. Walk through how you rasterize triangles in your own words.</b></p>
+		you basically just take the triangle, draw the boundaries, um, and then you're trying to
+		decide if the center point of a pixel is within the triangle. And the way you do this is
+		you basically go counterclockwise, and you take the points at the verticles of the
+		triangle, and then you draw the lines for the sides of the triangle, and then you also
+		draw lines to the point. And then you take the cross product of the side of the traingle
+		with the line from the vertice to the point and u do this for all three sides. if all
+		the cross products are the same sign, then the point is in the boundary. you do this for
+		all points in the bounding box (basically the min and max of the x and y coordinates of
+		the vertices forming a box (all the possible positions for points inside the triangle)
+		<p><b>2. Explain how your algorithm is no worse than one that checks each sample within
+		the bounding box of the triangle.</b></p>
+		both have to check all points. within the bounding box and the other computations are
+		fixed (3) so the O = WH
+		<p><b>3. Show a png screenshot of basic/test4.svg with the default viewing parameters
+		and with the pixel inspector centered on an interesting part of the scene.</b></p>
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="assets/lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="assets/lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="assets/lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="assets/lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
+		<figure>
+			<img src="assets/task1_test4_inspector-pink-sliver.png" alt="basic/test4.svg with pixel
+			inspector on pink sliver" style="width:70%"/>
+			<figcaption>basic/test4.svg, default view, pixel inspector on the skinny pink
+			triangle</figcaption>
+		</figure>
+
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>1. Walk through your supersampling algorithm and data structures.</b></p>
+		For question one, a supersampling is basically running rasterization on a all the
+		subpoints of a pixel and then averaging all of that out. And the way that I did this is
+		I would basically have an array and it would compute the position and the subpixels just
+		based off of the width and the height of the screen, like number of pixels. And also,
+		the number of subpoints it was uh, using. And then it could just instantaneously look up
+		in the array where the points were and then it could just average the n (n being the
+		number of subpoints that they're using) uh, n points and then that would be shown as the
+		color
+		<p><b>2. Why is supersampling useful? What modifications did you make to the
+		rasterization pipeline in the process? Explain how you used supersampling to antialias
+		your triangles.</b></p>
+		Super sampling, just basically creates softer edges. By averaging things out, um, so
+		it's useful for getting a smoother edge. Um, all that needed to change in the
+		rasterization pipeline was basically more points uh, needed to be rasterized and all of
+		the points needed to be stored and then averaged.
+		<p><b>3. Show png screenshots of basic/test4.svg with sample rates 1, 4, and 16, side by
+		side, with the pixel inspector over an area that shows the differences (e.g. a skinny
+		triangle corner). Explain why these results are observed.</b></p>
+		<table style="width: 100%; text-align: center; border-collapse: collapse;">
+		  <tr>
+			<td style="text-align: center;">
+			  <img src="assets/task2_test4_rate1_pink-sliver.png" width="100%"/>
+			  <figcaption>Sample rate 1</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="assets/task2_test4_rate4_pink-sliver.png" width="100%"/>
+			  <figcaption>Sample rate 4</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="assets/task2_test4_rate16_pink-sliver.png" width="100%"/>
+			  <figcaption>Sample rate 16</figcaption>
+			</td>
+		  </tr>
+		</table>
+		The edge just seems to get smoother. Uh, the more points that I pick up. So one is
+		jagged. Like the regular rasterization. Four had a little bit more smoothness. And then
+		16 just looked really smooth
 
 		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>1. Create an updated version of svg/transforms/robot.svg with cubeman doing
+		something more interesting (saved as my_robot.svg). Show a png screenshot of your
+		rendered drawing.</b></p>
+		<figure>
+			<img src="assets/task3_my_robot.png" alt="my_robot.svg: dancing cubeman" style="width:70%"/>
+			<figcaption>my_robot.svg: dancing cubeman</figcaption>
+		</figure>
+		<p><b>2. Explain what you were trying to do with cubeman in words.</b></p>
+		I originally had cubman waving but then i decided to make him dance. I changed the colors
+		around and then move some of his limbs and had him lift his leg up a bit so hes dancing
 
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>1. Explain barycentric coordinates in your own words and use an image to aid you
+		in your explanation.</b></p>
+		<figure>
+			<img src="assets/task4_rgb_triangle.png" alt="Triangle with red, green, and blue vertices" style="width:70%"/>
+			<figcaption>Triangle with red, green, and blue vertices</figcaption>
+		</figure>
+		Barycentric coordinates. Are basically just a way to blend the colors on the vertices of a
+		triangle. So in the example image, one of the corners is green, one of the corners is blue,
+		one of the corners is red. Now, we want to figure out how much red, green, and blue each
+		point has. So the way we do that is we basically calculate how much how close they are to
+		the vertices and so basically we have weights uh, multiplying the vertices and then we add
+		them all together and then that should equal the point so we basically have three equations
+		we can work with we can have the weights times the x-coordinates equals the x-coordinate of
+		the point, we have the weight times the  y-coordinates of the vertice equals the y
+		coordinate of the point and we have that the weights add up to 1. 3 unknowns, 3 equations.
+		using the variables, we can multiple the color with the weight for the three vertices and
+		add those together for the color at the point.
+		<p><b>2. Show a png screenshot of svg/basic/test7.svg with default viewing parameters
+		and sample rate 1.</b></p>
+		<figure>
+			<img src="assets/task4_test7_color-wheel.png" alt="basic/test7.svg color wheel, sample rate 1" style="width:70%"/>
+			<figcaption>basic/test7.svg, default view, sample rate 1</figcaption>
+		</figure>
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>1. Explain pixel sampling in your own words and describe how you implemented it to
+		perform texture mapping. Briefly discuss the two different pixel sampling methods,
+		nearest and bilinear.</b></p>
+		Pixel sampling is when you are trying to figure out the color for a pixel, you just look for
+		the nearest texel and then you choose that. If you're using bilinear, then you're looking for
+		the four texels surrounding that pixel. And then you're using a weighted average of those
+		four. And then you're going to use that average as the pixel color.
+		It is useful for texture mapping because I can convert an image of a different number of
+		pixels um, within height and I can use that on a different um, set of pixels with a
+		different width and height so then I can basically apply a texture onto something.
+		<p><b>2. Using a png file from svg/texmap/ where bilinear sampling clearly defeats
+		nearest sampling, show four png screenshots: nearest sampling at 1 sample per pixel,
+		nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and
+		bilinear sampling at 16 samples per pixel.</b></p>
+		<table style="width: 100%; text-align: center; border-collapse: collapse;">
+		  <tr>
+			<td style="text-align: center;">
+			  <img src="assets/task5_texmap1_nearest_rate1.png" width="100%"/>
+			  <figcaption>Nearest, 1 sample per pixel</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="assets/task5_texmap1_nearest_rate16.png" width="100%"/>
+			  <figcaption>Nearest, 16 samples per pixel</figcaption>
+			</td>
+		  </tr>
+		  <tr>
+			<td style="text-align: center;">
+			  <img src="assets/task5_texmap1_bilinear_rate1.png" width="100%"/>
+			  <figcaption>Bilinear, 1 sample per pixel</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="assets/task5_texmap1_bilinear_rate16.png" width="100%"/>
+			  <figcaption>Bilinear, 16 samples per pixel</figcaption>
+			</td>
+		  </tr>
+		</table>
+		<p><b>3. Comment on the relative differences. Discuss when there will be a large
+		difference between the two methods and why.</b></p>
+		the difference is much more noticeable. Um, when the sampling is lower. When the sampling is
+		higher, it's less. Different. Bilinear with highest sampling seems the smoothest, and uh,
+		sampling one with nearest seems to be the worst.
+		The largest difference will be at an edge. Because nearest will just take the value. But
+		when the colors change, there is going to be an average instead. So when the bilinear is
+		taken, the average will be a different color. This will be especially big when the colors
+		on the two texels or four texels are starkly different.
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>1. Explain level sampling in your own words and describe how you implemented it
+		for texture mapping.</b></p>
+		Level sampling is basically trying to fit an image or a texture into a smaller number of
+		pixels than texels. The way to do this is to keep on shrinking the number of texels you have
+		uh, you basically um, cut them in half and by doing this you're able to get the number of
+		texels down to an amount where you can map it to the number of pixels
+		Repeat the halving as many times as you need. And the number of times you need to halve is
+		the number of levels you had to go down. You need to have the width and the height.
+		The way you figure out how many times to halve is by checking how much UV changes by moving
+		one pixel over.
+		for the L calculation use barycentric interpolation on a pixel and two pixels next to it (right and bottom) and
+		then measure the difference and then multiple by the number of texels to get the pixels to
+		texels. then, use the magnitude of the differnce in height and width for both and do the max of them, thats L
+		for the values there, just use the averages of the 4 texels u replaced for the 1 texel u have
+		<p><b>2. Describe the tradeoffs between speed, memory usage, and antialiasing power
+		between the three techniques: pixel sampling, level sampling, and the number of samples
+		per pixel.</b></p>
+		pixel sampling is how u determine what to color a point, do you use the nearest texel or the surrounding 4 texels
+		doesnt add memory, it just happens in the moment. speed is high becuase you only need to do 4 averages and aliasing power is good relative to that
+		level sampling is deciding which mipmap level to use (u can use a whole level or a weighted average of two levels)
+		it approaches 4/3 (number of texels) in memory with the more layers you add. it is long too, depending on the number of levels. it does get really high aliasing power though
+		samples per pixel determines how many samples u use per pixel. 
+		doesnt add memory, it just happens in the moment. its speed goes up exponentially with each additional sampling but the aliasing power doesnt increase that much
+		because a lot of averages are already happening. 
+		each have their use cases. pixel sampling and samples per pixels have similar use cases but u up the samples per pixels with longer compute if u want more aliasing. 
+		level sampling is for high levels of aliasing. 
+		<p><b>3. Using a png file you find yourself, show four versions: L_ZERO and P_NEAREST,
+		L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, L_NEAREST and P_LINEAR.</b></p>
+		<table style="width: 100%; text-align: center; border-collapse: collapse;">
+		  <tr>
+			<td style="text-align: center;">
+			  <img src="assets/task6_rings_Lzero_Pnearest.png" width="100%"/>
+			  <figcaption>L_ZERO, P_NEAREST</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="assets/task6_rings_Lzero_Plinear.png" width="100%"/>
+			  <figcaption>L_ZERO, P_LINEAR</figcaption>
+			</td>
+		  </tr>
+		  <tr>
+			<td style="text-align: center;">
+			  <img src="assets/task6_rings_Lnearest_Pnearest.png" width="100%"/>
+			  <figcaption>L_NEAREST, P_NEAREST</figcaption>
+			</td>
+			<td style="text-align: center;">
+			  <img src="assets/task6_rings_Lnearest_Plinear.png" width="100%"/>
+			  <figcaption>L_NEAREST, P_LINEAR</figcaption>
+			</td>
+		  </tr>
+		</table>
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
 		</div>
 	</body>
 </html>
